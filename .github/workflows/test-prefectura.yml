@@ -1,0 +1,10 @@
+
+name: test-prefectura
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sS -m 40 -A "Mozilla/5.0" -o p.html -w "HTTP %{http_code}\n" https://contenidosweb.prefecturanaval.gob.ar/alturas/ || echo "SIN ACCESO"
+          grep -o "BARRANQUERAS.\{0,400\}" p.html | head -3 || true
